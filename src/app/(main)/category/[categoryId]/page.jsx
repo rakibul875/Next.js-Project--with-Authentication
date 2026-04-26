@@ -18,8 +18,8 @@ const CategoryNews = async ({params}) => {
 
           <LeftSideBar category={category} activeId={categoryId} />
         </div>
-        <div className="bg-red-300 col-span-6">
-          <h1>All News</h1>
+        <div className="col-span-6">
+          <h1 className="font-bold text-lg mx-5">Category News</h1>
           <div className="">
             {news.length===0?<div>News Not found</div> :news.map((n) => (
               <NewsCard key={n._id} news={n}/>
