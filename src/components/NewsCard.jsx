@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { CiBookmark, CiShare2 } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
@@ -42,11 +43,23 @@ const NewsCard = ({ news }) => {
           />
         </figure>
         <p className="line-clamp-3 mb-3 px-4">{news.details}</p>
-        <button className="btn bg-red-100 w-40 rounded-xl mx-5 mb-3">Read More...</button>
+        <Link href={`/news/${news._id}`}>
+          <button className="btn bg-red-100 w-40 rounded-xl mx-5 mb-3">
+            Read More...
+          </button>
+        </Link>
         <span className="border border-t-2 border-gray-200 my-3 mx-4"></span>
         <div className="flex justify-between items-center mx-4 my-2">
-            <p className="flex items-center gap-2"><IoIosStar className="text-2xl text-yellow-500"/> <IoIosStar className="text-2xl text-yellow-500"/> <IoIosStar className="text-2xl text-yellow-500"/>{news.rating.number}</p>
-            <p className="flex items-center gap-2"><FaEye className="text-2xl"/>{news.total_view}</p>
+          <p className="flex items-center gap-2">
+            <IoIosStar className="text-2xl text-yellow-500" />{" "}
+            <IoIosStar className="text-2xl text-yellow-500" />{" "}
+            <IoIosStar className="text-2xl text-yellow-500" />
+            {news.rating.number}
+          </p>
+          <p className="flex items-center gap-2">
+            <FaEye className="text-2xl" />
+            {news.total_view}
+          </p>
         </div>
       </div>
     </div>
