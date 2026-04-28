@@ -1,15 +1,27 @@
-"use client"
+"use client";
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 const loginPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handelLogin= (data)=>{
-    console.log(data)
-  }
+  const handelLogin = async (data) => {
+    const { data: res, error } = await authClient.signIn.email({
+      email: data.email, // required
+      password: data.password, // required
+      rememberMe: true,
+      callbackURL: "/",
+    });
+
+    console.log(res,error)
+  };
 
   return (
     <div className="flex justify-center items-center bg-slate-100 container mx-auto mt-20 rounded-2xl">
@@ -22,10 +34,12 @@ const loginPage = () => {
             <input
               type="email"
               className="input"
-              {...register("email",{ required: 'Email is required' })}
+              {...register("email", { required: "Email is required" })}
               placeholder="Enter your Email"
             />
-            {errors.email&&<p className="text-red-600">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-600">{errors.email.message}</p>
+            )}
           </fieldset>
           <fieldset className="fieldset">
             <legend className="fieldset-legend text-xl">Password</legend>
@@ -33,9 +47,11 @@ const loginPage = () => {
               type="password"
               className="input"
               placeholder="Enter your Password"
-              {...register("password" ,{ required: 'Password is required' })}
+              {...register("password", { required: "Password is required" })}
             />
-            {errors.password&&<p className="text-red-600">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-600">{errors.password.message}</p>
+            )}
           </fieldset>
           <button className="btn w-full bg-slate-800 text-white">Login</button>
         </form>
